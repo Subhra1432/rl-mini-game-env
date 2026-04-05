@@ -15,7 +15,6 @@ Usage:
     python -m server.app
 """
 
-# Support both in-repo and standalone imports
 try:
     from openenv.core.env_server.http_server import create_app
     from openenv.core.env_server.mcp_types import CallToolAction, CallToolObservation
@@ -25,14 +24,28 @@ except ImportError:
     from openenv.core.env_server.mcp_types import CallToolAction, CallToolObservation
     from server.email_triage_environment import EmailTriageEnvironment
 
-# Create the app with web interface support
-# Pass the class (factory) for WebSocket session support
 app = create_app(
     EmailTriageEnvironment,
     CallToolAction,
     CallToolObservation,
     env_name="email_triage_env",
 )
+
+@app.get("/")
+def read_root():
+    from fastapi.responses import HTMLResponse
+    return HTMLResponse(
+        """
+        <html>
+            <head><title>Email Triage Environment</title></head>
+            <body style="font-family: sans-serif; text-align: center; margin-top: 50px;">
+                <h1>Email Triage Environment</h1>
+                <p>Status: <b style="color: green;">Running</b></p>
+                <p>Ready to receive requests at <code>/reset</code> and <code>/step</code>.</p>
+            </body>
+        </html>
+        """
+    )
 
 
 def main():

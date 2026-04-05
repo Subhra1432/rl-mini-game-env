@@ -6,7 +6,7 @@ colorTo: indigo
 sdk: docker
 pinned: false
 ---
-# 📧 Email Triage Environment
+# Email Triage Environment
 
 [![OpenEnv Compatible](https://img.shields.io/badge/OpenEnv-Compatible-blue)](https://github.com/meta-pytorch/OpenEnv)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10+-green)](https://python.org)
@@ -18,7 +18,7 @@ Built on the [OpenEnv](https://github.com/meta-pytorch/OpenEnv) framework with f
 
 ---
 
-## 🎯 What is This?
+## What is This?
 
 This environment simulates a **support team inbox** where an AI agent receives emails and must:
 
@@ -31,7 +31,7 @@ The environment includes **35 realistic support emails** covering billing disput
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 ┌─────────────────────────────────────────────────┐
@@ -60,7 +60,7 @@ The environment includes **35 realistic support emails** covering billing disput
 
 ---
 
-## 📋 Tasks
+## Tasks
 
 ### Task 1: Email Classification (Easy)
 | Property | Value |
@@ -94,7 +94,7 @@ The environment includes **35 realistic support emails** covering billing disput
 
 ---
 
-## 🔧 Action Space
+## Action Space
 
 All actions are exposed as **MCP tools** (compatible with function-calling LLMs):
 
@@ -115,7 +115,7 @@ All actions are exposed as **MCP tools** (compatible with function-calling LLMs)
 
 ---
 
-## 👁️ Observation Space
+## Observation Space
 
 After each `reset()` or `step()`, the environment returns an `Observation` with:
 
@@ -139,7 +139,7 @@ After each `reset()` or `step()`, the environment returns an `Observation` with:
 
 ---
 
-## 📊 Reward Function
+## Reward Function
 
 Rewards provide **partial progress signal** over the trajectory:
 
@@ -157,7 +157,7 @@ The final episode score is the weighted sum per task configuration (always 0.0�
 
 ---
 
-## 🚀 Setup
+## Setup
 
 ### Prerequisites
 - Python 3.10+
@@ -216,7 +216,7 @@ API_BASE_URL="https://api.openai.com/v1" MODEL_NAME="gpt-4o-mini" HF_TOKEN="sk-.
 
 ---
 
-## 🐳 Docker Deployment
+## Docker Deployment
 
 ### Build and Run
 
@@ -243,7 +243,7 @@ openenv push --repo-id your-username/email-triage-env
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 email_triage_env/
@@ -272,7 +272,7 @@ email_triage_env/
 
 ---
 
-## 🧪 Validation
+## Validation
 
 ```bash
 # Validate OpenEnv compliance (requires openenv-core CLI)
@@ -284,13 +284,13 @@ PYTHONPATH=. pytest tests/ -v
 
 ---
 
-## 📄 License
+## License
 
 BSD 3-Clause License
 
 ---
 
-## 📈 Baseline Scores
+## Baseline Scores
 
 The baseline `gpt-4o-mini` evaluation results across the tasks (via standard inference script):
 

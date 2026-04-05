@@ -143,7 +143,7 @@ def main():
         print("Error: HF_TOKEN or OPENAI_API_KEY not set", file=sys.stderr)
         sys.exit(1)
 
-    print(f"🚀 Starting inference.py with Model: {MODEL_NAME}", file=sys.stderr)
+    print(f"Starting inference.py with Model: {MODEL_NAME}", file=sys.stderr)
     
     client = OpenAI(base_url=API_BASE_URL, api_key=HF_TOKEN)
     env = EmailTriageEnvironment()
@@ -207,7 +207,7 @@ def main():
                         seed=SEED,
                     )
                 except Exception as e:
-                    print(f"⚠ API error: {e}", file=sys.stderr)
+                    print(f"API error: {e}", file=sys.stderr)
                     steps += 1
                     rewards.append(0.0)
                     log_step(step=steps, action="api_error", reward=0.0, done=True, error=str(e).replace("\\n", " "))
