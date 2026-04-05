@@ -1,0 +1,577 @@
+[
+  {
+    "email_id": "e001",
+    "subject": "Cannot access my account after password reset",
+    "body": "Hi Support,\n\nI reset my password yesterday through the forgot password link, but now when I try to log in with my new password, it says 'Invalid credentials'. I've tried resetting again but the email never arrives. I need to access my account urgently for work.\n\nPlease help.\n\nBest regards,\nJohn Doe",
+    "sender": "john.doe@example.com",
+    "timestamp": "2026-03-15T10:30:00Z",
+    "thread_history": [],
+    "ground_truth": {
+      "category": "account",
+      "priority": "high",
+      "department": "account_mgmt",
+      "expected_response_keywords": ["password", "reset", "account", "access", "link", "verify"]
+    },
+    "difficulty": "easy",
+    "task_ids": ["email_classify", "email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e002",
+    "subject": "Billing discrepancy on my latest invoice",
+    "body": "Hello,\n\nI noticed that my latest invoice (#INV-2026-0342) shows a charge of $299.99 but my plan is the Basic tier at $49.99/month. I did not authorize any upgrade or additional purchases.\n\nCould you please review and correct this?\n\nThanks,\nSarah Miller",
+    "sender": "sarah.miller@company.org",
+    "timestamp": "2026-03-15T11:15:00Z",
+    "thread_history": [],
+    "ground_truth": {
+      "category": "billing",
+      "priority": "high",
+      "department": "billing",
+      "expected_response_keywords": ["invoice", "charge", "review", "billing", "refund", "correct"]
+    },
+    "difficulty": "easy",
+    "task_ids": ["email_classify", "email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e003",
+    "subject": "Feature request: Dark mode for mobile app",
+    "body": "Hi team,\n\nI love your product but I really wish the mobile app had a dark mode option. It would be much easier on the eyes when using it at night. Many competing apps already offer this.\n\nWould be great to see this in a future update!\n\nCheers,\nAlex Chen",
+    "sender": "alex.chen@gmail.com",
+    "timestamp": "2026-03-15T12:00:00Z",
+    "thread_history": [],
+    "ground_truth": {
+      "category": "feature_request",
+      "priority": "low",
+      "department": "product",
+      "expected_response_keywords": ["feature", "request", "roadmap", "feedback", "consider", "thank"]
+    },
+    "difficulty": "easy",
+    "task_ids": ["email_classify", "email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e004",
+    "subject": "URGENT: Application crashes on file upload",
+    "body": "Hi,\n\nSince the latest update (v3.2.1), our entire team is experiencing crashes whenever we try to upload files larger than 10MB. This is blocking our daily operations as we process large datasets.\n\nEnvironment:\n- OS: Ubuntu 22.04\n- Browser: Chrome 122\n- RAM: 16GB\n\nError message: 'FATAL: OutOfMemoryError at FileProcessor.java:342'\n\nThis is affecting 50+ users in our organization. Please prioritize.\n\nRegards,\nMichael Torres\nIT Director, DataCorp Inc.",
+    "sender": "michael.torres@datacorp.com",
+    "timestamp": "2026-03-15T08:45:00Z",
+    "thread_history": [],
+    "ground_truth": {
+      "category": "technical",
+      "priority": "critical",
+      "department": "engineering",
+      "expected_response_keywords": ["crash", "bug", "investigate", "update", "fix", "priority", "engineering"]
+    },
+    "difficulty": "easy",
+    "task_ids": ["email_classify", "email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e005",
+    "subject": "Congratulations! You've won a $1000 gift card!",
+    "body": "Dear Lucky Winner,\n\nYou have been selected as the winner of our monthly sweepstakes! Click the link below to claim your $1000 Amazon gift card immediately!\n\nhttp://totally-legit-prizes.xyz/claim?id=8372\n\nThis offer expires in 24 hours. Act now!\n\nBest wishes,\nPrize Committee",
+    "sender": "prizes@totally-legit-mail.xyz",
+    "timestamp": "2026-03-15T14:20:00Z",
+    "thread_history": [],
+    "ground_truth": {
+      "category": "spam",
+      "priority": "low",
+      "department": "spam_filter",
+      "expected_response_keywords": []
+    },
+    "difficulty": "easy",
+    "task_ids": ["email_classify", "email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e006",
+    "subject": "API rate limiting returns wrong error code",
+    "body": "Hello,\n\nWhen I exceed the API rate limit, I'm getting a 500 Internal Server Error instead of the expected 429 Too Many Requests. This is causing our retry logic to behave incorrectly since we rely on the status code to implement exponential backoff.\n\nSteps to reproduce:\n1. Set API key in headers\n2. Make 100+ requests per second\n3. Observe 500 errors instead of 429\n\nAPI Version: v2.1\nEndpoint: /api/v2/data/query\n\nThanks,\nPriya Sharma\nSenior Developer",
+    "sender": "priya.sharma@techstartup.io",
+    "timestamp": "2026-03-15T09:30:00Z",
+    "thread_history": [],
+    "ground_truth": {
+      "category": "technical",
+      "priority": "high",
+      "department": "engineering",
+      "expected_response_keywords": ["bug", "rate limit", "error", "investigate", "fix", "API"]
+    },
+    "difficulty": "easy",
+    "task_ids": ["email_classify", "email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e007",
+    "subject": "Cancel my subscription effective immediately",
+    "body": "To whom it may concern,\n\nI want to cancel my subscription right now. I've been charged for 3 months without using the service and I want a full refund for those months. My account email is robert.k@email.com, subscription ID: SUB-88421.\n\nIf this isn't resolved within 24 hours, I will escalate to my credit card company.\n\nRobert Kim",
+    "sender": "robert.k@email.com",
+    "timestamp": "2026-03-15T16:00:00Z",
+    "thread_history": [],
+    "ground_truth": {
+      "category": "billing",
+      "priority": "high",
+      "department": "billing",
+      "expected_response_keywords": ["cancel", "subscription", "refund", "process", "account"]
+    },
+    "difficulty": "easy",
+    "task_ids": ["email_classify", "email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e008",
+    "subject": "Suspicious login attempt notification",
+    "body": "Hi Security Team,\n\nI received a notification about a login attempt from an IP address I don't recognize (185.234.72.18, location: Moscow, Russia). I'm based in San Francisco and have not traveled recently.\n\nI've already changed my password but I'm worried my account may have been compromised. Can you please check if there was any unauthorized access or data exported from my account?\n\nAccount: emma.wilson@bigcorp.com\n\nUrgently,\nEmma Wilson",
+    "sender": "emma.wilson@bigcorp.com",
+    "timestamp": "2026-03-15T07:15:00Z",
+    "thread_history": [],
+    "ground_truth": {
+      "category": "account",
+      "priority": "critical",
+      "department": "security",
+      "expected_response_keywords": ["security", "login", "unauthorized", "investigate", "account", "protect"]
+    },
+    "difficulty": "medium",
+    "task_ids": ["email_classify", "email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e009",
+    "subject": "Integration with Salesforce CRM",
+    "body": "Hi Product Team,\n\nWe're evaluating your platform for our 200-person sales team. One critical requirement is native integration with Salesforce CRM. We need:\n\n1. Bi-directional sync of contacts\n2. Activity logging from your platform to Salesforce\n3. Custom field mapping\n\nDo you currently support this? If not, is it on the roadmap? This is a deal-breaker for our procurement decision, which needs to be finalized by end of month.\n\nBest,\nDavid Park\nVP of Sales, Enterprise Solutions Ltd.",
+    "sender": "david.park@enterprise-solutions.com",
+    "timestamp": "2026-03-15T13:45:00Z",
+    "thread_history": [],
+    "ground_truth": {
+      "category": "feature_request",
+      "priority": "medium",
+      "department": "product",
+      "expected_response_keywords": ["integration", "Salesforce", "roadmap", "feature", "team", "evaluate"]
+    },
+    "difficulty": "medium",
+    "task_ids": ["email_classify", "email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e010",
+    "subject": "Slow performance in dashboard since Monday",
+    "body": "Hi,\n\nOur analytics dashboard has been extremely slow since Monday. Pages take 15-20 seconds to load vs the usual 2-3 seconds. This affects our entire organization.\n\nNothing changed on our end. Is there a known issue?\n\nThanks,\nLisa Wang\nOperations Manager",
+    "sender": "lisa.wang@mediumco.com",
+    "timestamp": "2026-03-15T10:00:00Z",
+    "thread_history": [],
+    "ground_truth": {
+      "category": "technical",
+      "priority": "high",
+      "department": "engineering",
+      "expected_response_keywords": ["performance", "slow", "investigate", "dashboard", "team"]
+    },
+    "difficulty": "easy",
+    "task_ids": ["email_classify", "email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e011",
+    "subject": "Increase your followers by 10,000 overnight!",
+    "body": "Hey there!\n\nAre you struggling to grow your social media presence? Our proven system has helped thousands of businesses gain real followers FAST!\n\n★ 10,000 Instagram followers - $29.99\n★ 50,000 Twitter followers - $49.99\n★ 100,000 TikTok followers - $79.99\n\nLimited time offer! Use code GROW2026 for 50% off!\n\nVisit: http://instant-followers-boost.biz\n\nGrow Team",
+    "sender": "marketing@instant-growth.biz",
+    "timestamp": "2026-03-15T15:30:00Z",
+    "thread_history": [],
+    "ground_truth": {
+      "category": "spam",
+      "priority": "low",
+      "department": "spam_filter",
+      "expected_response_keywords": []
+    },
+    "difficulty": "easy",
+    "task_ids": ["email_classify", "email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e012",
+    "subject": "Re: Data export not working + billing question",
+    "body": "Hi,\n\nTwo issues:\n\n1) I still can't export my data to CSV. When I click 'Export', nothing happens. I've tried Chrome, Firefox, and Safari. This has been broken for 2 weeks.\n\n2) Also, I noticed I was charged twice in February ($99.99 x 2). Can someone look into this?\n\nThis is frustrating because I reported the export bug 10 days ago (ticket #TK-7821) and haven't heard back.\n\nMark Johnson",
+    "sender": "mark.johnson@freelancer.com",
+    "timestamp": "2026-03-15T11:30:00Z",
+    "thread_history": [
+      {"from": "mark.johnson@freelancer.com", "date": "2026-03-05T14:00:00Z", "snippet": "Original report: CSV export button not working on any browser."},
+      {"from": "support@ourapp.com", "date": "2026-03-06T09:00:00Z", "snippet": "Thanks for reporting. We're looking into this. Ticket #TK-7821 created."}
+    ],
+    "ground_truth": {
+      "category": "technical",
+      "priority": "high",
+      "department": "engineering",
+      "expected_response_keywords": ["export", "bug", "billing", "duplicate", "charge", "investigate", "sorry"]
+    },
+    "difficulty": "hard",
+    "task_ids": ["email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e013",
+    "subject": "Enterprise pricing inquiry",
+    "body": "Hello Sales Team,\n\nI'm the CTO of a 500-employee fintech company. We're interested in your enterprise plan and have the following questions:\n\n1. Do you offer custom SLAs with 99.99% uptime guarantee?\n2. What's the pricing for 500+ seats?\n3. Do you support SOC 2 Type II compliance?\n4. Can we get a dedicated account manager?\n\nWe'd like to schedule a demo for our technical team next week.\n\nBest regards,\nAnjali Patel\nCTO, FinScale Technologies",
+    "sender": "anjali.patel@finscale.tech",
+    "timestamp": "2026-03-15T14:00:00Z",
+    "thread_history": [],
+    "ground_truth": {
+      "category": "billing",
+      "priority": "medium",
+      "department": "billing",
+      "expected_response_keywords": ["enterprise", "pricing", "demo", "schedule", "plan", "team"]
+    },
+    "difficulty": "medium",
+    "task_ids": ["email_classify", "email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e014",
+    "subject": "Account hacked - unauthorized transactions",
+    "body": "HELP! My account has been hacked!\n\nI just noticed 5 unauthorized API calls made from my account that deleted production data. The calls were made between 2:00 AM and 3:00 AM today from IP 203.0.113.42.\n\nAPI calls made:\n- DELETE /api/v2/projects/proj-881\n- DELETE /api/v2/projects/proj-882  \n- DELETE /api/v2/projects/proj-883\n- DELETE /api/v2/datasets/ds-441\n- DELETE /api/v2/datasets/ds-442\n\nI need my account locked IMMEDIATELY and the data restored if possible. This is a production environment with client data.\n\nJames O'Brien\nCTO, CloudFirst Solutions",
+    "sender": "james.obrien@cloudfirst.io",
+    "timestamp": "2026-03-15T06:30:00Z",
+    "thread_history": [],
+    "ground_truth": {
+      "category": "account",
+      "priority": "critical",
+      "department": "security",
+      "expected_response_keywords": ["security", "account", "lock", "unauthorized", "restore", "data", "immediate", "investigate"]
+    },
+    "difficulty": "medium",
+    "task_ids": ["email_classify", "email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e015",
+    "subject": "How do I change my notification settings?",
+    "body": "Hi,\n\nI'm getting too many email notifications from your service. How can I change my notification preferences? I only want to receive critical alerts, not the daily digests.\n\nThanks,\nTom Lee",
+    "sender": "tom.lee@personal.com",
+    "timestamp": "2026-03-15T17:00:00Z",
+    "thread_history": [],
+    "ground_truth": {
+      "category": "account",
+      "priority": "low",
+      "department": "account_mgmt",
+      "expected_response_keywords": ["notification", "settings", "preferences", "account", "profile"]
+    },
+    "difficulty": "easy",
+    "task_ids": ["email_classify", "email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e016",
+    "subject": "Re: Re: Re: Still waiting for refund #RF-2201",
+    "body": "This is now the FOURTH time I'm following up on my refund request. It's been 45 days.\n\nOriginal refund request: January 15th\nFirst follow-up: February 1st\nSecond follow-up: February 15th\nThird follow-up: March 1st\n\nI was promised the refund would be processed 'within 5-7 business days' EACH TIME. Nothing has happened.\n\nIf I don't receive my $449.97 refund by end of this week, I will:\n1. File a complaint with the BBB\n2. Initiate a chargeback through my bank\n3. Post my experience on social media\n\nThis is completely unacceptable.\n\nFurious,\nRachel Green",
+    "sender": "rachel.green@yahoo.com",
+    "timestamp": "2026-03-15T09:00:00Z",
+    "thread_history": [
+      {"from": "rachel.green@yahoo.com", "date": "2026-01-15T10:00:00Z", "snippet": "Requesting refund for unused annual subscription. Order #ORD-44812."},
+      {"from": "billing@ourapp.com", "date": "2026-01-16T11:00:00Z", "snippet": "Refund approved. Will be processed in 5-7 business days. Ref #RF-2201."},
+      {"from": "rachel.green@yahoo.com", "date": "2026-02-01T09:00:00Z", "snippet": "Haven't received refund yet. Please check."},
+      {"from": "billing@ourapp.com", "date": "2026-02-02T10:00:00Z", "snippet": "Apologies for the delay. Escalated to finance team."},
+      {"from": "rachel.green@yahoo.com", "date": "2026-02-15T08:00:00Z", "snippet": "Still no refund. This is unacceptable."},
+      {"from": "billing@ourapp.com", "date": "2026-02-16T09:00:00Z", "snippet": "We sincerely apologize. Processing now, 5-7 days."},
+      {"from": "rachel.green@yahoo.com", "date": "2026-03-01T08:00:00Z", "snippet": "STILL waiting. Want to speak to a manager."}
+    ],
+    "ground_truth": {
+      "category": "billing",
+      "priority": "critical",
+      "department": "billing",
+      "expected_response_keywords": ["refund", "apolog", "escalat", "manager", "priority", "process", "immediately"]
+    },
+    "difficulty": "hard",
+    "task_ids": ["email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e017",
+    "subject": "Webhook deliveries failing intermittently",
+    "body": "Hi Support,\n\nOur webhook endpoint (https://api.ourservice.com/webhooks/receive) is receiving only about 60% of the events we've configured. The failures are intermittent and don't seem to correlate with any pattern on our end.\n\nOur endpoint returns 200 OK within 100ms for all received webhooks. The webhook dashboard shows the missing events as 'timeout' but our server access logs don't show the requests arriving at all.\n\nThis started approximately 3 days ago. Webhook ID: WH-9923.\n\nCould you investigate?\n\nBest,\nCarlos Mendez\nBackend Engineer",
+    "sender": "carlos.mendez@devteam.com",
+    "timestamp": "2026-03-15T10:45:00Z",
+    "thread_history": [],
+    "ground_truth": {
+      "category": "technical",
+      "priority": "high",
+      "department": "engineering",
+      "expected_response_keywords": ["webhook", "investigate", "timeout", "delivery", "engineering", "team"]
+    },
+    "difficulty": "medium",
+    "task_ids": ["email_classify", "email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e018",
+    "subject": "Exclusive investment opportunity - guaranteed 500% returns!",
+    "body": "Dear Valued Professional,\n\nConfidential Investment Opportunity\n\nI am reaching out to a select group of professionals with an exclusive investment opportunity in cryptocurrency mining operations based in the Cayman Islands.\n\nMinimum investment: $5,000\nGuaranteed returns: 500% within 90 days\nRisk: ZERO\n\nWire transfer instructions will be provided upon reply. This opportunity is limited to the first 50 respondents.\n\nDr. Magnus Wellington III\nChief Investment Officer\nGlobal Wealth Partners International",
+    "sender": "invest@crypto-wealth-partners.biz",
+    "timestamp": "2026-03-15T13:00:00Z",
+    "thread_history": [],
+    "ground_truth": {
+      "category": "spam",
+      "priority": "low",
+      "department": "spam_filter",
+      "expected_response_keywords": []
+    },
+    "difficulty": "easy",
+    "task_ids": ["email_classify", "email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e019",
+    "subject": "GDPR data deletion request",
+    "body": "To the Data Protection Officer,\n\nPursuant to Article 17 of the General Data Protection Regulation (GDPR), I hereby request the complete deletion of all personal data associated with my account.\n\nAccount email: hans.mueller@datenschutz.de\nAccount ID: USR-77210\n\nPlease confirm deletion within the 30-day statutory period and provide a written confirmation once complete.\n\nI also request a copy of all data you currently hold about me (Article 15 DSAR) before deletion.\n\nHans Mueller\nBerlin, Germany",
+    "sender": "hans.mueller@datenschutz.de",
+    "timestamp": "2026-03-15T08:00:00Z",
+    "thread_history": [],
+    "ground_truth": {
+      "category": "account",
+      "priority": "high",
+      "department": "account_mgmt",
+      "expected_response_keywords": ["GDPR", "data", "deletion", "privacy", "request", "confirm", "compliance"]
+    },
+    "difficulty": "hard",
+    "task_ids": ["email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e020",
+    "subject": "Mobile app not syncing with web version",
+    "body": "Hi,\n\nChanges I make on the web app don't appear on the mobile app and vice versa. I've tried:\n- Logging out and back in on both\n- Clearing cache on mobile\n- Updating the app to latest version (4.1.2)\n\nMy data is out of sync and I'm afraid of losing work.\n\nPhone: iPhone 15 Pro, iOS 17.4\nBrowser: Safari 17.3\n\nNatasha Rivera",
+    "sender": "natasha.rivera@outlook.com",
+    "timestamp": "2026-03-15T12:30:00Z",
+    "thread_history": [],
+    "ground_truth": {
+      "category": "technical",
+      "priority": "high",
+      "department": "engineering",
+      "expected_response_keywords": ["sync", "issue", "investigate", "mobile", "web", "data"]
+    },
+    "difficulty": "easy",
+    "task_ids": ["email_classify", "email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e021",
+    "subject": "Team plan billing: adding/removing seats mid-cycle",
+    "body": "Hello Billing,\n\nI manage a team plan with 25 seats. I have a few questions:\n\n1. If I add 5 seats mid-billing cycle, is it prorated?\n2. If I remove seats, do I get credit for the remaining days?\n3. We have an annual plan - can we switch to monthly without losing our volume discount?\n\nOur next billing date is April 1st and I need to make changes before then.\n\nTeam plan ID: TP-1133\n\nKatherine Brooks\nAdmin, Creative Agency Co.",
+    "sender": "katherine.brooks@creative-agency.co",
+    "timestamp": "2026-03-15T15:00:00Z",
+    "thread_history": [],
+    "ground_truth": {
+      "category": "billing",
+      "priority": "medium",
+      "department": "billing",
+      "expected_response_keywords": ["seats", "prorat", "billing", "plan", "credit", "change"]
+    },
+    "difficulty": "medium",
+    "task_ids": ["email_classify", "email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e022",
+    "subject": "Bug: SSO login fails with SAML assertion error",
+    "body": "Hi,\n\nOur SSO integration (SAML 2.0 via Okta) stopped working this morning. All 150 users in our organization are locked out.\n\nError: 'SAML Response validation failed: Signature validation failed. SAML Response rejected.'\n\nNothing changed on our Okta configuration. We suspect something changed on your end during last night's maintenance window.\n\nThis is P0 for us - our entire company cannot access the platform.\n\nMike Chen\nIT Security Lead, GlobalTech Inc.",
+    "sender": "mike.chen@globaltech.com",
+    "timestamp": "2026-03-15T07:00:00Z",
+    "thread_history": [],
+    "ground_truth": {
+      "category": "technical",
+      "priority": "critical",
+      "department": "engineering",
+      "expected_response_keywords": ["SSO", "SAML", "investigate", "urgent", "engineering", "maintenance", "fix"]
+    },
+    "difficulty": "medium",
+    "task_ids": ["email_classify", "email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e023",
+    "subject": "Can I get a student discount?",
+    "body": "Hi there,\n\nI'm a computer science student at MIT and I love your platform. Is there a student discount available? I can provide my .edu email or student ID for verification.\n\nMy current plan is the free tier and I'd like to upgrade to Pro.\n\nThanks!\nJenny Park\njpark@mit.edu",
+    "sender": "jpark@mit.edu",
+    "timestamp": "2026-03-15T16:30:00Z",
+    "thread_history": [],
+    "ground_truth": {
+      "category": "billing",
+      "priority": "low",
+      "department": "billing",
+      "expected_response_keywords": ["student", "discount", "education", "plan", "verify"]
+    },
+    "difficulty": "easy",
+    "task_ids": ["email_classify", "email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e024",
+    "subject": "Data breach concern - shared link exposed private files",
+    "body": "URGENT SECURITY CONCERN\n\nI just discovered that a shared link I created for a private document (https://app.ourservice.com/shared/abc123) is accessible WITHOUT authentication. I set the link to 'Authenticated users only' but anyone with the URL can view it.\n\nThis document contains sensitive client financial data (NDA-protected). I've disabled the link but I don't know how long it was exposed or who accessed it.\n\nI need:\n1. Access logs for that shared link (who viewed it and when)\n2. Confirmation this is fixed for all shared links\n3. An incident report for our compliance team\n\nThis may be a reportable data breach under our industry regulations.\n\nDr. Amanda Foster\nChief Compliance Officer, HealthFirst Partners",
+    "sender": "amanda.foster@healthfirst.com",
+    "timestamp": "2026-03-15T06:00:00Z",
+    "thread_history": [],
+    "ground_truth": {
+      "category": "account",
+      "priority": "critical",
+      "department": "security",
+      "expected_response_keywords": ["security", "breach", "access", "logs", "incident", "investigate", "immediate", "compliance"]
+    },
+    "difficulty": "hard",
+    "task_ids": ["email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e025",
+    "subject": "Thanks for the great customer service!",
+    "body": "Hi,\n\nJust wanted to say thanks to your support agent Maria who helped me resolve my issue yesterday. She was patient, knowledgeable, and went above and beyond.\n\nI've been a customer for 3 years and this is why I keep coming back.\n\nBest,\nSteve Rogers",
+    "sender": "steve.rogers@gmail.com",
+    "timestamp": "2026-03-15T17:30:00Z",
+    "thread_history": [],
+    "ground_truth": {
+      "category": "account",
+      "priority": "low",
+      "department": "account_mgmt",
+      "expected_response_keywords": ["thank", "feedback", "appreciate", "team", "glad"]
+    },
+    "difficulty": "easy",
+    "task_ids": ["email_classify", "email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e026",
+    "subject": "Complex workflow automation not triggering",
+    "body": "Hello Support,\n\nI've set up a multi-step workflow automation that should:\n1. Trigger when a new record is created in Table A\n2. Check if a matching record exists in Table B\n3. If match: update the record in Table B\n4. If no match: create new record in Table C and send notification\n\nStep 1 triggers fine, but steps 2-4 never execute. The workflow editor shows all steps as 'Active' and the conditions look correct.\n\nWorkflow ID: WF-5567\nPlan: Business (supports multi-step automations)\n\nI've attached screenshots of my workflow configuration.\n\nOlivia Martinez\nProcess Automation Specialist",
+    "sender": "olivia.martinez@consultco.com",
+    "timestamp": "2026-03-15T11:00:00Z",
+    "thread_history": [],
+    "ground_truth": {
+      "category": "technical",
+      "priority": "medium",
+      "department": "engineering",
+      "expected_response_keywords": ["workflow", "automation", "investigate", "configuration", "steps"]
+    },
+    "difficulty": "medium",
+    "task_ids": ["email_classify", "email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e027",
+    "subject": "Migrating from competitor - need data import help",
+    "body": "Hi,\n\nWe're migrating from CompetitorX to your platform. We have 50GB of data in their proprietary format (.cpx files) that needs to be imported.\n\nQuestions:\n1. Do you support .cpx file imports?\n2. Is there a migration tool or API for bulk imports?\n3. Can your team assist with the migration? We'd be willing to pay for professional services.\n4. What's the expected timeline for a migration of this size?\n\nWe're on a tight deadline - our CompetitorX contract ends April 15th.\n\nBest,\nDaniel Thompson\nCTO, NewStart Inc.",
+    "sender": "daniel.thompson@newstart.io",
+    "timestamp": "2026-03-15T14:30:00Z",
+    "thread_history": [],
+    "ground_truth": {
+      "category": "technical",
+      "priority": "medium",
+      "department": "engineering",
+      "expected_response_keywords": ["migration", "import", "data", "support", "team", "timeline"]
+    },
+    "difficulty": "medium",
+    "task_ids": ["email_classify", "email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e028",
+    "subject": "Your account needs urgent verification!!!",
+    "body": "Dear Customer,\n\nWe have detected unusual activity on your account. Your account will be SUSPENDED within 24 hours unless you verify your identity immediately.\n\nClick here to verify: http://ourapp-verify-account.tk/verify\n\nProvide your:\n- Full name\n- Email and password\n- Credit card number for verification\n- Social security number\n\nFailure to comply will result in permanent account closure.\n\nSecurity Department\nOurApp Team",
+    "sender": "security@ourapp-alerts.tk",
+    "timestamp": "2026-03-15T18:00:00Z",
+    "thread_history": [],
+    "ground_truth": {
+      "category": "spam",
+      "priority": "low",
+      "department": "spam_filter",
+      "expected_response_keywords": []
+    },
+    "difficulty": "easy",
+    "task_ids": ["email_classify", "email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e029",
+    "subject": "Accessibility compliance - screen reader support",
+    "body": "Hello,\n\nI'm a visually impaired user relying on JAWS screen reader. Several parts of your web application are not accessible:\n\n1. The main navigation has no ARIA labels\n2. Form inputs lack associated labels\n3. Color contrast ratios fail WCAG 2.1 AA standards in the dashboard\n4. Keyboard navigation is broken in the settings modal\n\nUnder ADA Title III and Section 508, web applications must be accessible. I'd like to know:\n- When will these issues be addressed?\n- Is there an accessible alternative in the meantime?\n\nI hope we can resolve this without legal action.\n\nPatricia Adams\nAccessibility Advocate",
+    "sender": "patricia.adams@a11y-advocacy.org",
+    "timestamp": "2026-03-15T09:15:00Z",
+    "thread_history": [],
+    "ground_truth": {
+      "category": "technical",
+      "priority": "high",
+      "department": "engineering",
+      "expected_response_keywords": ["accessibility", "WCAG", "ADA", "address", "priority", "team", "improvement"]
+    },
+    "difficulty": "hard",
+    "task_ids": ["email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e030",
+    "subject": "Partnership proposal - AI integration",
+    "body": "Dear Product Team,\n\nI'm the CEO of AIAssist, a Y Combinator-backed AI startup. We'd like to propose a partnership to integrate our AI assistant directly into your platform.\n\nOur AI can:\n- Auto-categorize user workflows\n- Predict next actions based on usage patterns\n- Generate reports from natural language queries\n\nWe currently serve 10,000+ users with a 4.8/5 rating. We believe this integration would benefit both our user bases.\n\nWould you be open to an initial technical discussion?\n\nBest regards,\nSophia Laurent\nCEO, AIAssist\nwww.aiassist.ai",
+    "sender": "sophia.laurent@aiassist.ai",
+    "timestamp": "2026-03-15T16:45:00Z",
+    "thread_history": [],
+    "ground_truth": {
+      "category": "feature_request",
+      "priority": "medium",
+      "department": "product",
+      "expected_response_keywords": ["partnership", "integration", "discussion", "team", "interested"]
+    },
+    "difficulty": "medium",
+    "task_ids": ["email_classify", "email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e031",
+    "subject": "Compliance audit finding - data retention policy",
+    "body": "To the Data Governance Team,\n\nDuring our annual SOC 2 audit, we discovered that your platform retains deleted user data for 180 days instead of the 30 days stated in your privacy policy. This discrepancy constitutes a compliance violation.\n\nFindings:\n- Deleted project data from October 2025 still accessible via API\n- User PII retained beyond stated retention period\n- Backup systems contain data that should have been purged\n\nWe require:\n1. Written explanation of the discrepancy\n2. Remediation plan with timeline\n3. Updated privacy policy reflecting actual practices\n4. Third-party audit of data retention compliance\n\nThis may affect our continued use of your platform and our own compliance certifications.\n\nBest regards,\nRichard Baker\nChief Information Security Officer\nRegulated Financial Corp.",
+    "sender": "richard.baker@regulated-finance.com",
+    "timestamp": "2026-03-15T07:45:00Z",
+    "thread_history": [],
+    "ground_truth": {
+      "category": "account",
+      "priority": "critical",
+      "department": "security",
+      "expected_response_keywords": ["compliance", "data", "retention", "audit", "privacy", "remediation", "investigate"]
+    },
+    "difficulty": "hard",
+    "task_ids": ["email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e032",
+    "subject": "Batch API processing returns partial results",
+    "body": "Hi Engineering,\n\nWhen I submit a batch API request with 1000 items, I consistently get back only 750-800 results. No errors are returned - the response just has fewer items than submitted.\n\nI've verified:\n- All 1000 items in request body are valid\n- Individual API calls for the \"missing\" items work fine\n- The issue is reproducible with different data sets\n- Batch size of 500 works perfectly\n\nIs there an undocumented batch size limit? The API docs say the limit is 5000.\n\nExample request ID: REQ-2026031500847\n\nOmar Hassan\nData Engineer",
+    "sender": "omar.hassan@dataops.co",
+    "timestamp": "2026-03-15T13:15:00Z",
+    "thread_history": [],
+    "ground_truth": {
+      "category": "technical",
+      "priority": "high",
+      "department": "engineering",
+      "expected_response_keywords": ["batch", "API", "investigate", "bug", "limit", "engineering"]
+    },
+    "difficulty": "medium",
+    "task_ids": ["email_classify", "email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e033",
+    "subject": "Need bulk user provisioning via SCIM",
+    "body": "Hi,\n\nWe need to provision 300 users via SCIM 2.0 protocol for our Okta integration. Your docs mention SCIM support but I can't find the SCIM endpoint URL or setup instructions.\n\nCan you provide:\n1. SCIM base URL\n2. Authentication method (Bearer token? OAuth?)\n3. Supported SCIM operations (Users, Groups?)\n4. Any rate limits on provisioning\n\nWe need this working before our company-wide rollout on April 1st.\n\nYuki Tanaka\nIdentity Engineer",
+    "sender": "yuki.tanaka@enterprise.jp",
+    "timestamp": "2026-03-15T18:30:00Z",
+    "thread_history": [],
+    "ground_truth": {
+      "category": "technical",
+      "priority": "medium",
+      "department": "engineering",
+      "expected_response_keywords": ["SCIM", "provisioning", "documentation", "setup", "integration"]
+    },
+    "difficulty": "medium",
+    "task_ids": ["email_classify", "email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e034",
+    "subject": "Multiple issues - can't even describe how frustrated I am",
+    "body": "I am SO done with your service. Let me list everything that's wrong:\n\n1. BILLING: I was charged $199 for a plan I downgraded from 2 months ago\n2. TECHNICAL: Your iOS app crashes every time I open the Reports section\n3. ACCOUNT: I requested to add 2 team members 3 weeks ago, still pending\n4. SUPPORT: I've sent 3 emails in the past month with ZERO response\n\nI run a small business and depend on your tool daily. This level of service is driving me to look at alternatives.\n\nI want:\n- Immediate refund of the overcharge\n- The app crash fixed\n- My team members added TODAY\n- An explanation for why support has been silent\n\nIf I don't hear back within 24 hours, I'm switching to CompetitorY and posting reviews everywhere.\n\nANGRY customer,\nNadia Koslov",
+    "sender": "nadia.koslov@smallbiz.com",
+    "timestamp": "2026-03-15T08:30:00Z",
+    "thread_history": [
+      {"from": "nadia.koslov@smallbiz.com", "date": "2026-02-20T10:00:00Z", "snippet": "Please add users nadia2@smallbiz.com and nadia3@smallbiz.com to my team plan."},
+      {"from": "nadia.koslov@smallbiz.com", "date": "2026-03-01T09:00:00Z", "snippet": "Following up on team member addition and reporting iOS app crash in Reports."},
+      {"from": "nadia.koslov@smallbiz.com", "date": "2026-03-10T08:00:00Z", "snippet": "Third email. Still no response. Also noticed billing overcharge."}
+    ],
+    "ground_truth": {
+      "category": "billing",
+      "priority": "critical",
+      "department": "billing",
+      "expected_response_keywords": ["apolog", "refund", "team", "crash", "escalat", "priority", "resolve", "manager"]
+    },
+    "difficulty": "hard",
+    "task_ids": ["email_triage", "email_resolve"]
+  },
+  {
+    "email_id": "e035",
+    "subject": "API documentation outdated for v3 endpoints",
+    "body": "Hey,\n\nThe API docs at docs.ourapp.com/api/v3 still reference v2 request/response formats. Specifically:\n\n- POST /api/v3/records: Docs say field is 'record_name' but API expects 'name'\n- GET /api/v3/users: Response includes 'role_id' not documented\n- Authentication section still shows v2 token format\n\nThis caused us to waste 2 days debugging integration issues.\n\nCan you update the docs?\n\nRaj Patel\nFullstack Developer",
+    "sender": "raj.patel@webdev.in",
+    "timestamp": "2026-03-15T12:45:00Z",
+    "thread_history": [],
+    "ground_truth": {
+      "category": "technical",
+      "priority": "medium",
+      "department": "engineering",
+      "expected_response_keywords": ["documentation", "update", "API", "v3", "fix", "team"]
+    },
+    "difficulty": "easy",
+    "task_ids": ["email_classify", "email_triage", "email_resolve"]
+  }
+]

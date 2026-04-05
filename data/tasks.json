@@ -1,0 +1,63 @@
+[
+  {
+    "task_id": "email_classify",
+    "name": "Email Classification",
+    "difficulty": "easy",
+    "description": "Classify the email into the correct category and assign an appropriate priority level. This is a single-step task that tests basic email understanding.",
+    "max_steps": 1,
+    "required_actions": ["classify"],
+    "scoring": {
+      "category_weight": 0.6,
+      "priority_weight": 0.4
+    },
+    "valid_categories": ["billing", "technical", "account", "feature_request", "spam"],
+    "valid_priorities": ["critical", "high", "medium", "low"],
+    "email_filter": {
+      "difficulties": ["easy"],
+      "count": 10
+    }
+  },
+  {
+    "task_id": "email_triage",
+    "name": "Email Triage",
+    "difficulty": "medium",
+    "description": "Perform full email triage: classify the category, assign priority, and route to the correct department. This multi-step task tests the agent's ability to follow a triage workflow.",
+    "max_steps": 3,
+    "required_actions": ["classify", "route"],
+    "scoring": {
+      "category_weight": 0.30,
+      "priority_weight": 0.20,
+      "department_weight": 0.35,
+      "efficiency_weight": 0.15
+    },
+    "valid_categories": ["billing", "technical", "account", "feature_request", "spam"],
+    "valid_priorities": ["critical", "high", "medium", "low"],
+    "valid_departments": ["engineering", "billing", "account_mgmt", "product", "security", "spam_filter"],
+    "email_filter": {
+      "difficulties": ["easy", "medium"],
+      "count": 10
+    }
+  },
+  {
+    "task_id": "email_resolve",
+    "name": "Email Resolution",
+    "difficulty": "hard",
+    "description": "Perform complete email resolution: classify, prioritize, route to the correct department, and draft an appropriate response. Emails include ambiguous cases, multi-issue threads, and escalation scenarios requiring careful analysis and professional communication.",
+    "max_steps": 5,
+    "required_actions": ["classify", "route", "respond"],
+    "scoring": {
+      "category_weight": 0.20,
+      "priority_weight": 0.10,
+      "department_weight": 0.20,
+      "response_weight": 0.35,
+      "efficiency_weight": 0.15
+    },
+    "valid_categories": ["billing", "technical", "account", "feature_request", "spam"],
+    "valid_priorities": ["critical", "high", "medium", "low"],
+    "valid_departments": ["engineering", "billing", "account_mgmt", "product", "security", "spam_filter"],
+    "email_filter": {
+      "difficulties": ["easy", "medium", "hard"],
+      "count": 10
+    }
+  }
+]
