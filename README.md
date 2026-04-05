@@ -35,25 +35,25 @@ The environment includes **35 realistic support emails** covering billing disput
 
 ```
 ┌─────────────────────────────────────────────────┐
-│              AI Agent (Client)                   │
-│  ┌──────────────────────────────────────────┐    │
-│  │  EmailTriageEnv (MCPToolClient)          │    │
-│  │  - list_tools() / call_tool()            │    │
-│  │  - reset(task_id=...) / step() / state() │    │
-│  └──────────┬───────────────────────────────┘    │
-└─────────────┼────────────────────────────────────┘
+│              AI Agent (Client)                  │
+│  ┌──────────────────────────────────────────┐   │
+│  │  EmailTriageEnv (MCPToolClient)          │   │
+│  │  - list_tools() / call_tool()            │   │
+│  │  - reset(task_id=...) / step() / state() │   │
+│  └──────────┬───────────────────────────────┘   │
+└─────────────┼───────────────────────────────────┘
               │ WebSocket / HTTP
 ┌─────────────▼────────────────────────────────────┐
-│           Docker Container (Server)               │
+│           Docker Container (Server)              │
 │  ┌──────────────────────────────────────────┐    │
-│  │  FastAPI + EmailTriageEnvironment         │    │
-│  │  MCP Tools:                               │    │
-│  │  - classify_email(category, priority)     │    │
-│  │  - route_email(department)                │    │
-│  │  - draft_response(response_text)          │    │
-│  │  - get_email_details()                    │    │
-│  │                                           │    │
-│  │  Grader → Deterministic scoring (0-1)     │    │
+│  │  FastAPI + EmailTriageEnvironment        │    │
+│  │  MCP Tools:                              │    │
+│  │  - classify_email(category, priority)    │    │
+│  │  - route_email(department)               │    │
+│  │  - draft_response(response_text)         │    │
+│  │  - get_email_details()                   │    │
+│  │                                          │    │
+│  │  Grader → Deterministic scoring (0-1)    │    │
 │  └──────────────────────────────────────────┘    │
 └──────────────────────────────────────────────────┘
 ```
