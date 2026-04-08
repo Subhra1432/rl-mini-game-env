@@ -45,16 +45,16 @@ The environment includes **35 realistic support emails** covering billing disput
               │ WebSocket / HTTP
 ┌─────────────▼────────────────────────────────────┐
 │           Docker Container (Server)              │
-│  ┌──────────────────────────────────────────┐    │
-│  │  FastAPI + EmailTriageEnvironment        │    │
-│  │  MCP Tools:                              │    │
-│  │  - classify_email(category, priority)    │    │
-│  │  - route_email(department)               │    │
-│  │  - draft_response(response_text)         │    │
-│  │  - get_email_details()                   │    │
-│  │                                          │    │
-│  │  Grader → Deterministic scoring (0-1)    │    │
-│  └──────────────────────────────────────────┘    │
+│  ┌───────────────────────────────────────────┐   │
+│  │  FastAPI + EmailTriageEnvironment         │   │
+│  │  MCP Tools:                               │   │
+│  │  - classify_email(category, priority)     │   │
+│  │  - route_email(department)                │   │
+│  │  - draft_response(response_text)          │   │
+│  │  - get_email_details()                    │   │
+│  │                                           │   │
+│  │  Grader → Deterministic scoring (0-1)     │   │
+│  └───────────────────────────────────────────┘   │
 └──────────────────────────────────────────────────┘
 ```
 
