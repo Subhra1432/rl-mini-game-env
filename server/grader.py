@@ -5,10 +5,13 @@ Implements deterministic grading logic for all three tasks:
 - email_classify (easy): category + priority accuracy
 - email_triage (medium): category + priority + department routing
 - email_resolve (hard): full triage + response quality scoring
+
+All scores are clamped to the open interval (0, 1) — the platform
+rejects exact 0.0 and 1.0 values.
 """
 
 import re
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 
 from models import (
     ActionType,
@@ -18,12 +21,43 @@ from models import (
     ScoreBreakdown,
 )
 
+# Small epsilon to keep scores strictly inside (0, 1)
+_EPS = 0.01
+
+
+def clamp_score(score: float) -> Union[int, float]:
+    """Clamp a score to the open interval (0, 1).
+
+    The OpenEnv platform requires every task score to be strictly
+    between 0 and 1 (not 0.0 and not 1.0).  This helper enforces
+    that constraint.
+
+    Returns int when the result is a whole number (no .0),
+    otherwise returns float.
+    """
+    if score <= 0.0:
+        clamped = _EPS          # 0.0 -> 0.01
+    elif score >= 1.0:
+        clamped = 1.0 - _EPS    # 1.0 -> 0.99
+    else:
+        clamped = score
+    # Return int if whole number, else float
+    return int(clamped) if clamped == int(clamped) else clamped
+
+
+def format_score(score: float) -> Union[int, float]:
+    """Return an int when the score is a whole number, else a float.
+
+    Examples: 1.0 -> 1, 0.0 -> 0, 0.5 -> 0.5, 0.95 -> 0.95
+    """
+    return int(score) if score == int(score) else score
+
 
 def grade_category(predicted: Optional[str], ground_truth: str) -> float:
-    """Grade category classification. Returns 1.0 for exact match, 0.0 otherwise."""
+    """Grade category classification. Returns ~1.0 for exact match, ~0.0 otherwise."""
     if predicted is None:
-        return 0.0
-    return 1.0 if predicted.lower() == ground_truth.lower() else 0.0
+        return clamp_score(0.0)
+    return clamp_score(1.0 if predicted.lower() == ground_truth.lower() else 0.0)
 
 
 def grade_priority(predicted: Optional[str], ground_truth: str) -> float:
@@ -35,7 +69,7 @@ def grade_priority(predicted: Optional[str], ground_truth: str) -> float:
         0.0 for two or more levels off
     """
     if predicted is None:
-        return 0.0
+        return clamp_score(0.0)
 
     priority_order = ["low", "medium", "high", "critical"]
 
@@ -43,22 +77,22 @@ def grade_priority(predicted: Optional[str], ground_truth: str) -> float:
         pred_idx = priority_order.index(predicted.lower())
         truth_idx = priority_order.index(ground_truth.lower())
     except ValueError:
-        return 0.0
+        return clamp_score(0.0)
 
     diff = abs(pred_idx - truth_idx)
     if diff == 0:
-        return 1.0
+        return clamp_score(1.0)
     elif diff == 1:
-        return 0.5
+        return clamp_score(0.5)
     else:
-        return 0.0
+        return clamp_score(0.0)
 
 
 def grade_department(predicted: Optional[str], ground_truth: str) -> float:
-    """Grade department routing. Returns 1.0 for exact match, 0.0 otherwise."""
+    """Grade department routing. Returns ~1.0 for exact match, ~0.0 otherwise."""
     if predicted is None:
-        return 0.0
-    return 1.0 if predicted.lower() == ground_truth.lower() else 0.0
+        return clamp_score(0.0)
+    return clamp_score(1.0 if predicted.lower() == ground_truth.lower() else 0.0)
 
 
 def grade_response(
@@ -79,12 +113,12 @@ def grade_response(
     if is_spam:
         # For spam, the best action is to NOT respond
         if response_text is None or response_text.strip() == "":
-            return 1.0
+            return clamp_score(1.0)
         else:
-            return 0.2  # Partial credit for identifying but still responding
+            return clamp_score(0.2)  # Partial credit for identifying but still responding
 
     if response_text is None or response_text.strip() == "":
-        return 0.0
+        return clamp_score(0.0)
 
     score = 0.0
     text_lower = response_text.lower()
@@ -117,7 +151,7 @@ def grade_response(
     # ----- Non-empty (0.10) -----
     score += 0.10
 
-    return min(score, 1.0)
+    return clamp_score(min(score, 1.0))
 
 
 def grade_efficiency(steps_taken: int, max_steps: int, min_steps: int) -> float:
@@ -126,14 +160,14 @@ def grade_efficiency(steps_taken: int, max_steps: int, min_steps: int) -> float:
     Returns 1.0 if completed in minimum steps, decreases linearly.
     """
     if steps_taken <= min_steps:
-        return 1.0
+        return clamp_score(1.0)
     elif steps_taken >= max_steps:
-        return 0.3  # Minimal credit for completing at all
+        return clamp_score(0.3)  # Minimal credit for completing at all
     else:
         # Linear interpolation
         excess = steps_taken - min_steps
         max_excess = max_steps - min_steps
-        return 1.0 - (0.7 * excess / max(max_excess, 1))
+        return clamp_score(1.0 - (0.7 * excess / max(max_excess, 1)))
 
 
 def compute_task_score(
@@ -188,11 +222,13 @@ def compute_task_score(
     total += scoring.get("response_weight", 0.0) * resp_score
     total += scoring.get("efficiency_weight", 0.0) * eff_score
 
+    # Clamp every component + total to strict (0, 1)
+    # format_score ensures int output for whole numbers (no .0)
     return ScoreBreakdown(
-        category_score=round(cat_score, 4),
-        priority_score=round(pri_score, 4),
-        department_score=round(dept_score, 4),
-        response_score=round(resp_score, 4),
-        efficiency_score=round(eff_score, 4),
-        total_score=round(min(total, 1.0), 4),
+        category_score=format_score(round(clamp_score(cat_score), 4)),
+        priority_score=format_score(round(clamp_score(pri_score), 4)),
+        department_score=format_score(round(clamp_score(dept_score), 4)),
+        response_score=format_score(round(clamp_score(resp_score), 4)),
+        efficiency_score=format_score(round(clamp_score(eff_score), 4)),
+        total_score=format_score(round(clamp_score(min(total, 1.0)), 4)),
     )

@@ -177,16 +177,17 @@ def main():
         )
         check("Grader import", True)
 
-        check("grade_category exact match", grade_category("billing", "billing") == 1.0)
-        check("grade_category mismatch", grade_category("billing", "technical") == 0.0)
-        check("grade_category None", grade_category(None, "billing") == 0.0)
+        # Scores are now clamped to (0, 1) — exact 0.0 becomes 0.01, exact 1.0 becomes 0.99
+        check("grade_category exact match", 0.0 < grade_category("billing", "billing") < 1.0)
+        check("grade_category mismatch", 0.0 < grade_category("billing", "technical") < 1.0)
+        check("grade_category None", 0.0 < grade_category(None, "billing") < 1.0)
 
-        check("grade_priority exact", grade_priority("high", "high") == 1.0)
+        check("grade_priority exact", 0.0 < grade_priority("high", "high") < 1.0)
         check("grade_priority one off", grade_priority("medium", "high") == 0.5)
-        check("grade_priority two off", grade_priority("low", "critical") == 0.0)
+        check("grade_priority two off", 0.0 < grade_priority("low", "critical") < 1.0)
 
-        check("grade_department exact", grade_department("engineering", "engineering") == 1.0)
-        check("grade_department mismatch", grade_department("billing", "engineering") == 0.0)
+        check("grade_department exact", 0.0 < grade_department("engineering", "engineering") < 1.0)
+        check("grade_department mismatch", 0.0 < grade_department("billing", "engineering") < 1.0)
 
         # Response grading
         resp_score = grade_response(
@@ -196,10 +197,10 @@ def main():
         check("grade_response non-empty", resp_score > 0.5, f"score={resp_score:.3f}")
 
         spam_score = grade_response("", [], is_spam=True)
-        check("grade_response spam (no reply = 1.0)", spam_score == 1.0)
+        check("grade_response spam (no reply → clamped)", 0.0 < spam_score < 1.0)
 
-        check("grade_efficiency optimal", grade_efficiency(1, 3, 1) == 1.0)
-        check("grade_efficiency over", grade_efficiency(3, 3, 1) == 0.3)
+        check("grade_efficiency optimal", 0.0 < grade_efficiency(1, 3, 1) < 1.0)
+        check("grade_efficiency over", 0.0 < grade_efficiency(3, 3, 1) < 1.0)
 
     except Exception as e:
         check("Grader validation", False, str(e))

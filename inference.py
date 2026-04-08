@@ -15,11 +15,14 @@ from openai import OpenAI
 
 sys.path.insert(0, str(Path(__file__).parent))
 from server.email_triage_environment import EmailTriageEnvironment
-from server.grader import compute_task_score
+from server.grader import compute_task_score, clamp_score
 
-API_BASE_URL = os.getenv("API_BASE_URL", "https://api.openai.com/v1")
-MODEL_NAME = os.getenv("MODEL_NAME", "gpt-4o-mini")
-HF_TOKEN = os.getenv("HF_TOKEN") or os.getenv("OPENAI_API_KEY")
+API_BASE_URL = os.getenv("API_BASE_URL", "<your-active-endpoint>")
+MODEL_NAME = os.getenv("MODEL_NAME", "<your-active-model>")
+HF_TOKEN = os.getenv("HF_TOKEN")
+
+# Optional – if you use from_docker_image():
+LOCAL_IMAGE_NAME = os.getenv("LOCAL_IMAGE_NAME")
 
 BENCHMARK = "email_triage_env"
 TASKS = ["email_classify", "email_triage", "email_resolve"]
@@ -130,13 +133,13 @@ def log_step(step: int, action: str, reward: float, done: bool, error: Optional[
     error_val = error if error else "null"
     done_val = str(done).lower()
     print(
-        f"[STEP] step={step} action={action} reward={reward:.2f} done={done_val} error={error_val}",
+        f"[STEP] step={step} action={action} reward={reward:g} done={done_val} error={error_val}",
         flush=True,
     )
 
 def log_end(success: bool, steps: int, score: float, rewards: List[float]) -> None:
-    rewards_str = ",".join(f"{r:.2f}" for r in rewards)
-    print(f"[END] success={str(success).lower()} steps={steps} score={score:.3f} rewards={rewards_str}", flush=True)
+    rewards_str = ",".join(f"{r:g}" for r in rewards)
+    print(f"[END] success={str(success).lower()} steps={steps} score={score:g} rewards={rewards_str}", flush=True)
 
 def main():
     if not HF_TOKEN:
@@ -209,8 +212,8 @@ def main():
                 except Exception as e:
                     print(f"API error: {e}", file=sys.stderr)
                     steps += 1
-                    rewards.append(0.0)
-                    log_step(step=steps, action="api_error", reward=0.0, done=True, error=str(e).replace("\\n", " "))
+                    rewards.append(clamp_score(0.0))
+                    log_step(step=steps, action="api_error", reward=clamp_score(0.0), done=True, error=str(e).replace("\\n", " "))
                     break
 
                 choice = response.choices[0]
@@ -218,10 +221,10 @@ def main():
                 if choice.finish_reason == "stop" or not choice.message.tool_calls:
                     if steps == 0:
                         steps += 1
-                        rewards.append(0.0)
+                        rewards.append(clamp_score(0.0))
                         action_str = choice.message.content or "none"
                         action_str = action_str.replace('\\n', ' ').replace('"', "'")
-                        log_step(step=steps, action=f'"{action_str}"', reward=0.0, done=True, error=None)
+                        log_step(step=steps, action=f'"{action_str}"', reward=clamp_score(0.0), done=True, error=None)
                     break
 
                 for tool_call in choice.message.tool_calls:
@@ -263,7 +266,7 @@ def main():
                         "content": json.dumps(result),
                     })
                     
-                    reward_val = 0.0
+                    reward_val = clamp_score(0.0)
                     done = (steps >= max_steps)
                     rewards.append(reward_val)
                     
@@ -284,11 +287,14 @@ def main():
                 steps_taken=max(steps, 1)
             )
             
-            final_score = score_obj.total_score
+            final_score = clamp_score(score_obj.total_score)
             success = final_score >= SUCCESS_SCORE_THRESHOLD
             
             if rewards:
-                rewards[-1] = float(final_score)
+                rewards[-1] = float(clamp_score(final_score))
+            
+            # Clamp every reward to strict (0, 1)
+            rewards = [float(clamp_score(r)) for r in rewards]
             
             log_end(success=success, steps=max(steps, 1), score=final_score, rewards=rewards)
 

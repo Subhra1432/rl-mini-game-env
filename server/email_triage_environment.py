@@ -41,7 +41,7 @@ try:
         ScoreBreakdown,
         ThreadMessage,
     )
-    from server.grader import compute_task_score
+    from server.grader import compute_task_score, clamp_score
 except ImportError:
     from email_triage_env.models import (
         ActionType,
@@ -54,7 +54,7 @@ except ImportError:
         ScoreBreakdown,
         ThreadMessage,
     )
-    from email_triage_env.server.grader import compute_task_score
+    from email_triage_env.server.grader import compute_task_score, clamp_score
 
 
 def _load_json(filename: str) -> Any:
@@ -105,7 +105,7 @@ class EmailTriageEnvironment(MCPEnvironment):
         self._agent_priority = None
         self._agent_department = None
         self._agent_response = None
-        self._last_reward = 0.0
+        self._last_reward = clamp_score(0.0)
         self._last_feedback = ""
 
         # Initialize internal state
@@ -230,7 +230,7 @@ class EmailTriageEnvironment(MCPEnvironment):
         self._agent_priority = None
         self._agent_department = None
         self._agent_response = None
-        self._last_reward = 0.0
+        self._last_reward = clamp_score(0.0)
         self._last_feedback = ""
 
         # Reset episode state
@@ -243,7 +243,7 @@ class EmailTriageEnvironment(MCPEnvironment):
             max_steps=self._current_task.get("max_steps", 1),
             score_breakdown=ScoreBreakdown(),
             done=False,
-            cumulative_reward=0.0,
+            cumulative_reward=clamp_score(0.0),
         )
 
         # Build initial observation
@@ -284,7 +284,7 @@ class EmailTriageEnvironment(MCPEnvironment):
                 f"Unknown action type: '{action_type}'. "
                 "Use classify_email, route_email, draft_response, or get_email_details."
             )
-            self._last_reward = -0.10
+            self._last_reward = clamp_score(-0.10)
 
         return self._build_observation(feedback=self._last_feedback)
 
@@ -332,7 +332,7 @@ class EmailTriageEnvironment(MCPEnvironment):
         """Handle email classification action."""
         if self._state.done:
             self._last_feedback = "Episode is already completed."
-            self._last_reward = 0.0
+            self._last_reward = clamp_score(0.0)
             return {"status": "error", "message": self._last_feedback}
 
         # Validate inputs
@@ -347,7 +347,7 @@ class EmailTriageEnvironment(MCPEnvironment):
                 f"Invalid category '{category}'. "
                 f"Valid categories: {valid_categories}"
             )
-            self._last_reward = -0.10
+            self._last_reward = clamp_score(-0.10)
             return {"status": "error", "message": self._last_feedback}
 
         if priority_lower not in valid_priorities:
@@ -355,7 +355,7 @@ class EmailTriageEnvironment(MCPEnvironment):
                 f"Invalid priority '{priority}'. "
                 f"Valid priorities: {valid_priorities}"
             )
-            self._last_reward = -0.10
+            self._last_reward = clamp_score(-0.10)
             return {"status": "error", "message": self._last_feedback}
 
         # Store classification
@@ -373,9 +373,7 @@ class EmailTriageEnvironment(MCPEnvironment):
         scoring = self._current_task.get("scoring", {})
         cat_reward = scoring.get("category_weight", 0.3) * cat_score
         pri_reward = scoring.get("priority_weight", 0.2) * pri_score
-        self._last_reward = cat_reward + pri_reward
-
-        self._state.cumulative_reward += self._last_reward
+        self._state.cumulative_reward = clamp_score(self._state.cumulative_reward + self._last_reward)
         self._state.score_breakdown.category_score = cat_score
         self._state.score_breakdown.priority_score = pri_score
 
@@ -398,7 +396,7 @@ class EmailTriageEnvironment(MCPEnvironment):
         """Handle email routing action."""
         if self._state.done:
             self._last_feedback = "Episode is already completed."
-            self._last_reward = 0.0
+            self._last_reward = clamp_score(0.0)
             return {"status": "error", "message": self._last_feedback}
 
         valid_departments = [d.value for d in Department]
@@ -409,7 +407,7 @@ class EmailTriageEnvironment(MCPEnvironment):
                 f"Invalid department '{department}'. "
                 f"Valid departments: {valid_departments}"
             )
-            self._last_reward = -0.10
+            self._last_reward = clamp_score(-0.10)
             return {"status": "error", "message": self._last_feedback}
 
         # Store routing
@@ -423,9 +421,7 @@ class EmailTriageEnvironment(MCPEnvironment):
 
         scoring = self._current_task.get("scoring", {})
         dept_reward = scoring.get("department_weight", 0.2) * dept_score
-        self._last_reward = dept_reward
-
-        self._state.cumulative_reward += self._last_reward
+        self._state.cumulative_reward = clamp_score(self._state.cumulative_reward + self._last_reward)
         self._state.score_breakdown.department_score = dept_score
 
         self._last_feedback = f"Email routed to '{department_lower}' department."
@@ -443,7 +439,7 @@ class EmailTriageEnvironment(MCPEnvironment):
         """Handle response drafting action."""
         if self._state.done:
             self._last_feedback = "Episode is already completed."
-            self._last_reward = 0.0
+            self._last_reward = clamp_score(0.0)
             return {"status": "error", "message": self._last_feedback}
 
         # Store response
@@ -462,9 +458,7 @@ class EmailTriageEnvironment(MCPEnvironment):
 
         scoring = self._current_task.get("scoring", {})
         resp_reward = scoring.get("response_weight", 0.25) * resp_score
-        self._last_reward = resp_reward
-
-        self._state.cumulative_reward += self._last_reward
+        self._state.cumulative_reward = clamp_score(self._state.cumulative_reward + self._last_reward)
         self._state.score_breakdown.response_score = resp_score
 
         if is_spam:
@@ -502,7 +496,7 @@ class EmailTriageEnvironment(MCPEnvironment):
         }
 
         self._last_feedback = "Email details retrieved."
-        self._last_reward = 0.0  # Informational, no reward
+        self._last_reward = clamp_score(0.0)  # Informational, no reward
 
         return details
 
@@ -551,15 +545,15 @@ class EmailTriageEnvironment(MCPEnvironment):
             steps_taken=self._state.step_count,
         )
         self._state.score_breakdown = final_score
-        self._state.cumulative_reward = final_score.total_score
+        self._state.cumulative_reward = clamp_score(final_score.total_score)
 
         self._last_feedback = (
-            f"Episode complete! Final score: {final_score.total_score:.2f}/1.00. "
-            f"Category: {final_score.category_score:.2f}, "
-            f"Priority: {final_score.priority_score:.2f}, "
-            f"Department: {final_score.department_score:.2f}, "
-            f"Response: {final_score.response_score:.2f}, "
-            f"Efficiency: {final_score.efficiency_score:.2f}"
+            f"Episode complete! Final score: {final_score.total_score:g}/1. "
+            f"Category: {final_score.category_score:g}, "
+            f"Priority: {final_score.priority_score:g}, "
+            f"Department: {final_score.department_score:g}, "
+            f"Response: {final_score.response_score:g}, "
+            f"Efficiency: {final_score.efficiency_score:g}"
         )
 
     def _build_observation(self, feedback: str = "") -> Observation:
@@ -567,7 +561,7 @@ class EmailTriageEnvironment(MCPEnvironment):
         if self._current_email is None:
             return Observation(
                 done=False,
-                reward=0.0,
+                reward=clamp_score(0.0),
                 metadata={"error": "No email loaded. Call reset first."},
             )
 
@@ -602,6 +596,6 @@ class EmailTriageEnvironment(MCPEnvironment):
 
         return Observation(
             done=self._state.done,
-            reward=self._last_reward if not self._state.done else self._state.cumulative_reward,
+            reward=clamp_score(self._last_reward if not self._state.done else self._state.cumulative_reward),
             metadata=obs_data,
         )

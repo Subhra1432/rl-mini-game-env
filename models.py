@@ -176,7 +176,7 @@ class EmailTriageObservation(BaseModel):
         description="Whether the episode has terminated"
     )
     reward: float = Field(
-        default=0.0,
+        default=0.01,
         description="Reward signal from the last action"
     )
 
@@ -194,12 +194,12 @@ class ScoreBreakdown(BaseModel):
     """Detailed breakdown of the agent's score."""
     model_config = ConfigDict(extra="allow")
 
-    category_score: float = Field(default=0.0, description="Score for category classification")
-    priority_score: float = Field(default=0.0, description="Score for priority assignment")
-    department_score: float = Field(default=0.0, description="Score for department routing")
-    response_score: float = Field(default=0.0, description="Score for response quality")
-    efficiency_score: float = Field(default=0.0, description="Score for step efficiency")
-    total_score: float = Field(default=0.0, description="Weighted total score (0.0-1.0)")
+    category_score: float = Field(default=0.01, description="Score for category classification")
+    priority_score: float = Field(default=0.01, description="Score for priority assignment")
+    department_score: float = Field(default=0.01, description="Score for department routing")
+    response_score: float = Field(default=0.01, description="Score for response quality")
+    efficiency_score: float = Field(default=0.01, description="Score for step efficiency")
+    total_score: float = Field(default=0.01, description="Weighted total score strictly in (0, 1)")
 
 
 class EmailTriageState(BaseModel):
@@ -246,6 +246,6 @@ class EmailTriageState(BaseModel):
         description="Whether the episode is complete"
     )
     cumulative_reward: float = Field(
-        default=0.0,
+        default=0.01,
         description="Total reward accumulated"
     )
